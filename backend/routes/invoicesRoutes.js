@@ -2,8 +2,7 @@ const express=require('express');
 
 const router=express.Router();
 
-const invoice=require("../models/invoice");
-const customer = require("../models/customer");
+const getUnpaidInvoices=require('../services/invoiceTool');
 
 
 router.get("/unpaid" ,async(req,res)=>{
@@ -11,10 +10,11 @@ router.get("/unpaid" ,async(req,res)=>{
     
     const minAmount=Number(req.query.minAmount)||0;
 
-    const result= await invoice.find({status:"Unpaid", amount:{$gte:minAmount}}).populate('customer');
+    const result=await getUnpaidInvoices(minAmount);
 
-    res.json(result);
     console.log(result);
+    res.json(result);
+    
     
 }catch(error){
     res.status(500).json({message:error.message})
