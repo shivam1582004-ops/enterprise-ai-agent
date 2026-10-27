@@ -7,7 +7,7 @@ async function dbConnect(){
 
     }
     catch(error){
-        console.log("Error aa rahi ki:",error.message);
+        console.log("Error is coming that:",error.message);
     }
 
 }
